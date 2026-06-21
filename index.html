@@ -306,6 +306,21 @@ console.log(parseFloat(drug["Max (mkday)"]));
 
 const volMin = doseMin / parseFloat(drug["Conc per mL (mg/mL)"]);
 const volMax = doseMax / parseFloat(drug["Conc per mL (mg/mL)"]);
+
+const doseRangeText =
+doseMin === doseMax
+? `${doseMin.toFixed(1)} mg/dose`
+: `${doseMin.toFixed(1)} - ${doseMax.toFixed(1)} mg/dose`;
+
+const volumeRangeText =
+volMin === volMax
+? `${volMin.toFixed(1)} mL/dose`
+: `${volMin.toFixed(1)} - ${volMax.toFixed(1)} mL/dose`;
+
+const recommendedRangeText =
+parseFloat(drug["Min (mkday)"]) === parseFloat(drug["Max (mkday)"])
+? `${parseFloat(drug["Min (mkday)"]).toFixed(2)} mg/kg/dose`
+: `${parseFloat(drug["Min (mkday)"]).toFixed(2)} - ${parseFloat(drug["Max (mkday)"]).toFixed(2)} mg/kg/dose`;
   
 const frequency = drug["Frequency"] || "-";
 const maxDailyRaw = drug["MaxDailyDose_mg"];
@@ -324,17 +339,17 @@ document.getElementById("result").innerHTML=
 
 <h3>Dose Range</h3>
 <p>
-${drug["Min (mkday)"]} - ${drug["Max (mkday)"]} mg/kg/dose
+${recommendedRangeText}
 </p>
 
 <h3>Calculated Dose</h3>
 <p>
-${doseMin.toFixed(1)} - ${doseMax.toFixed(1)} mg/dose
+${doseRangeText}
 </p>
 
 <h3>Volume</h3>
 <p>
-${volMin.toFixed(1)} - ${volMax.toFixed(1)} mL/dose
+${volumeRangeText}
 </p>
 
 <h3>Frequency</h3>
