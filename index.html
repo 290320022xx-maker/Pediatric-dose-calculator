@@ -101,6 +101,15 @@ placeholder="Weight (kg)"
 >
 
 <input
+id="age"
+type="number"
+placeholder="Age (year)"
+>
+
+<select id="indication">
+<option value="">Select indication</option>
+</select>
+<input
 list="druglist"
 id="drug"
 placeholder="Search drug..."
@@ -140,10 +149,44 @@ window.drugs=data;
 
 const list=document.getElementById("druglist");
 
-data.forEach(d=>{
+const uniqueDrugs=[...new Set(data.map(d=>d.Name))];
+
+uniqueDrugs.forEach(name=>{
 const option=document.createElement("option");
-option.value=d.Name;
+option.value=name;
 list.appendChild(option);
+});
+
+  <input
+list="druglist"
+id="drug"
+placeholder="Search drug..."
+onchange="updateIndications()"
+>
+function updateIndications(){
+
+const selectedDrug=document.getElementById("drug").value;
+
+const rows=drugs.filter(d=>d.Name===selectedDrug);
+
+const uniqueIndications=[
+...new Set(rows.map(r=>r.Indication))
+];
+
+const select=document.getElementById("indication");
+
+select.innerHTML="<option value=''>Select indication</option>";
+
+uniqueIndications.forEach(ind=>{
+
+const option=document.createElement("option");
+
+option.value=ind;
+
+option.text=ind;
+
+select.appendChild(option);
+
 });
 
 }
@@ -152,9 +195,36 @@ function calculate(){
 
 const weight=parseFloat(document.getElementById("weight").value);
 
-const selected=document.getElementById("drug").value;
+const weight=parseFloat(document.getElementById("weight").value);
 
-const drug=drugs.find(d=>d.Name===selected);
+const age=parseFloat(document.getElementById("age").value);
+
+const selectedDrug=document.getElementById("drug").value;
+
+const selectedIndication=document.getElementById("indication").value;
+
+const drug=drugs.find(d=>
+
+d.Name===selectedDrug &&
+
+d.Indication===selectedIndication &&
+
+age>=parseFloat(d.Age_Min_Year) &&
+
+age<=parseFloat(d.Age_Max_Year)
+
+);
+
+if(!drug){
+
+document.getElementById("result").innerHTML=
+`
+<h3>No matching regimen found</h3>
+`;
+
+return;
+
+}
 
 const doseMin = weight * parseFloat(drug["Min (mkday)"]);
 const doseMax = weight * parseFloat(drug["Max (mkday)"]);
