@@ -226,6 +226,11 @@ return;
 const doseMin = weight * parseFloat(drug["Min (mkday)"]);
 const doseMax = weight * parseFloat(drug["Max (mkday)"]);
 
+console.log(drug["Min (mkday)"]);
+console.log(drug["Max (mkday)"]);
+console.log(parseFloat(drug["Min (mkday)"]));
+console.log(parseFloat(drug["Max (mkday)"]));
+
 const volMin = doseMin / parseFloat(drug["Conc per mL (mg/mL)"]);
 const volMax = doseMax / parseFloat(drug["Conc per mL (mg/mL)"]);
 
