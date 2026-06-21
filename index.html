@@ -106,16 +106,13 @@ type="number"
 placeholder="Age (year)"
 >
 
+<select id="drug" onchange="updateIndications()">
+<option value="">Select drug</option>
+</select>
+
 <select id="indication">
 <option value="">Select indication</option>
 </select>
-<input
-list="druglist"
-id="drug"
-placeholder="Search drug..."
->
-
-<datalist id="druglist"></datalist>
 
 <button onclick="calculate()">
 Calculate Dose
@@ -147,22 +144,24 @@ console.log(data);
 
 window.drugs=data;
 
-const list=document.getElementById("druglist");
+const drugSelect=document.getElementById("drug");
 
 const uniqueDrugs=[...new Set(data.map(d=>d.Name))];
 
 uniqueDrugs.forEach(name=>{
-const option=document.createElement("option");
-option.value=name;
-list.appendChild(option);
-});
 
-  <input
-list="druglist"
-id="drug"
-placeholder="Search drug..."
-onchange="updateIndications()"
->
+const option=document.createElement("option");
+
+option.value=name;
+
+option.text=name;
+
+drugSelect.appendChild(option);
+
+});
+  
+}
+
 function updateIndications(){
 
 const selectedDrug=document.getElementById("drug").value;
@@ -192,8 +191,6 @@ select.appendChild(option);
 }
 
 function calculate(){
-
-const weight=parseFloat(document.getElementById("weight").value);
 
 const weight=parseFloat(document.getElementById("weight").value);
 
