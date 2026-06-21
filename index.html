@@ -82,7 +82,13 @@ const doseMax = weight * parseFloat(drug["Max (mkday)"]);
 const volMin = doseMin / parseFloat(drug["Conc per mL (mg/mL)"]);
 const volMax = doseMax / parseFloat(drug["Conc per mL (mg/mL)"]);
 
-const maxDaily = parseFloat(drug["MaxDailyDose_mg"]);
+const maxDailyRaw = drug["MaxDailyDose_mg"];
+
+console.log("MaxDailyDose_mg =", maxDailyRaw);
+
+const maxDaily = Number(maxDailyRaw);
+
+console.log("maxDaily =", maxDaily);
 
 document.getElementById("result").innerHTML=
 `
