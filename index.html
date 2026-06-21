@@ -6,10 +6,65 @@
 <title>Pediatric Dose Calculator</title>
 <style>
 body{
-font-family:Arial,sans-serif;
+font-family: 'Segoe UI', sans-serif;
+background:#f4f7fb;
+padding:20px;
+margin:0;
+}
+
+.container{
 max-width:600px;
 margin:auto;
+}
+
+.card{
+background:white;
+padding:24px;
+border-radius:20px;
+box-shadow:0 4px 20px rgba(0,0,0,.08);
+}
+
+h1{
+color:#1565c0;
+margin-bottom:5px;
+}
+
+.subtitle{
+color:#666;
+margin-bottom:25px;
+}
+
+input,select{
+width:100%;
+padding:14px;
+border:1px solid #ddd;
+border-radius:12px;
+font-size:16px;
+margin-bottom:15px;
+box-sizing:border-box;
+}
+
+button{
+width:100%;
+padding:14px;
+border:none;
+border-radius:12px;
+background:#1565c0;
+color:white;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+}
+
+button:hover{
+opacity:0.9;
+}
+
+.result{
+margin-top:20px;
 padding:20px;
+background:#f8fbff;
+border-radius:16px;
 }
 
 input,select,button{
@@ -28,6 +83,36 @@ margin-top:20px;
 </style>
 </head>
 <body>
+
+<div class="container">
+
+<div class="card">
+
+<h1>🩺 Pediatric Dose Calculator</h1>
+
+<div class="subtitle">
+โรงพยาบาลถลาง
+</div>
+
+<input
+id="weight"
+type="number"
+placeholder="Weight (kg)"
+>
+
+<select id="drug"></select>
+
+<button onclick="calculate()">
+Calculate Dose
+</button>
+
+<div class="result" id="result"></div>
+
+</div>
+
+</div>
+
+<script>
 <h2>Pediatric Dose Calculator</h2>
 
 <input id="weight" type="number" placeholder="Weight (kg)">
@@ -92,21 +177,23 @@ console.log("maxDaily =", maxDaily);
 
 document.getElementById("result").innerHTML=
 `
-<h3>${drug.Name}</h3>
+<h2>${drug.Name}</h2>
 
+<hr>
+
+<h3>Recommended Dose</h3>
 <p>
-Dose:
 ${doseMin.toFixed(1)} - ${doseMax.toFixed(1)} mg/dose
 </p>
 
+<h3>Volume</h3>
 <p>
-Volume:
 ${volMin.toFixed(1)} - ${volMax.toFixed(1)} mL/dose
 </p>
 
+<h3>Maximum Daily Dose</h3>
 <p>
-Maximum daily dose:
-${maxDaily.toFixed(1)} mg/day
+${maxDaily.toLocaleString()} mg/day
 </p>
 `;
 
