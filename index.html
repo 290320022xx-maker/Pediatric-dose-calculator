@@ -106,9 +106,14 @@ type="number"
 placeholder="Age (year)"
 >
 
-<select id="drug" onchange="updateIndications()">
-<option value="">Select drug</option>
-</select>
+<input
+list="druglist"
+id="drug"
+placeholder="Search drug..."
+onchange="updateIndications()"
+>
+
+<datalist id="druglist"></datalist>
 
 <select id="indication">
 <option value="">Select indication</option>
@@ -144,7 +149,7 @@ console.log(data);
 
 window.drugs=data;
 
-const drugSelect=document.getElementById("drug");
+const list=document.getElementById("druglist");
 
 const uniqueDrugs=[...new Set(data.map(d=>d.Name))];
 
@@ -154,9 +159,7 @@ const option=document.createElement("option");
 
 option.value=name;
 
-option.text=name;
-
-drugSelect.appendChild(option);
+list.appendChild(option);
 
 });
   
