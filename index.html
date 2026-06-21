@@ -29,7 +29,13 @@ margin-top:20px;
 </head>
 <body>
 <h2>Pediatric Dose Calculator</h2>
+
 <input id="weight" type="number" placeholder="Weight (kg)">
+
+<select id="drug"></select>
+
+<button onclick="calculate()">Calculate</button>
+
 <div class="result" id="result"></div>
 <script>
 
@@ -39,8 +45,15 @@ async function loadDrugs(){
 
 const url=`https://opensheet.elk.sh/${SHEET_ID}/Drug_Master`;
 
-const res=await fetch(url);
-const data=await res.json();
+const res = await fetch(url);
+
+if(!res.ok){
+  throw new Error("Cannot load Google Sheet");
+}
+
+const data = await res.json();
+
+console.log(data);
 
 window.drugs=data;
 
