@@ -257,7 +257,8 @@ console.log(parseFloat(drug["Max (mkday)"]));
 
 const volMin = doseMin / parseFloat(drug["Conc per mL (mg/mL)"]);
 const volMax = doseMax / parseFloat(drug["Conc per mL (mg/mL)"]);
-
+  
+const frequency = drug["Frequency"];
 const maxDailyRaw = drug["MaxDailyDose_mg"];
 
 console.log("MaxDailyDose_mg =", maxDailyRaw);
@@ -285,6 +286,11 @@ ${doseMin.toFixed(1)} - ${doseMax.toFixed(1)} mg/dose
 <h3>Volume</h3>
 <p>
 ${volMin.toFixed(1)} - ${volMax.toFixed(1)} mL/dose
+</p>
+
+<h3>Frequency</h3>
+<p>
+${frequency}
 </p>
 
 <h3>Maximum Daily Dose</h3>
