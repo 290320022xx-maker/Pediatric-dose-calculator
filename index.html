@@ -277,9 +277,14 @@ document.getElementById("result").innerHTML=
 ${drug["Min (mkday)"]} - ${drug["Max (mkday)"]} mg/kg/day
 </p>
 
-<h3>Calculated Daily Dose</h3>
+<h3>Recommended Dose</h3>
 <p>
-${doseMin.toFixed(1)} - ${doseMax.toFixed(1)} mg/day
+${drug["Min (mkdose)"]} - ${drug["Max (mkdose)"]} mg/kg/dose
+</p>
+
+<h3>Calculated Dose</h3>
+<p>
+${doseMin.toFixed(1)} - ${doseMax.toFixed(1)} mg/dose
 </p>
 
 <h3>Volume</h3>
