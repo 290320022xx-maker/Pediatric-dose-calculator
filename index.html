@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pediatric Dose Calculator</title>
+<style>
+body{
+font-family:Arial,sans-serif;
+max-width:600px;
+margin:auto;
+padding:20px;
+}
+
+input,select,button{
+width:100%;
+padding:12px;
+margin-top:10px;
+margin-bottom:10px;
+}
+
+.result{
+background:#f5f5f5;
+padding:15px;
+border-radius:10px;
+margin-top:20px;
+}
+</style>
+</head>
+<body>
+<h2>Pediatric Dose Calculator</h2>
+<input id="weight" type="number" placeholder="Weight (kg)">
+<div class="result" id="result"></div>
+<script>
+
+const SHEET_ID="15rif9LPKAhaMZjvXKSwruZEZF8pfrOoYo3BTXPj1qk4";
+
+async function loadDrugs(){
+
+const url=`https://opensheet.elk.sh/${SHEET_ID}/Drug_Master`;
+
+const res=await fetch(url);
+const data=await res.json();
+
+window.drugs=data;
+
+const select=document.getElementById("drug");
+
+data.forEach(d=>{
+const option=document.createElement("option");
+option.value=d.DrugName;
+option.text=d.DrugName;
+select.appendChild(option);
+});
+
+}
+
+function calculate(){
+
+const weight=parseFloat(document.getElementById("weight").value);
+
+const selected=document.getElementById("drug").value;
+
+const drug=drugs.find(d=>d.DrugName===selected);
+
+const doseMin=weight*parseFloat(drug.DoseMin_mgkg);
+const doseMax=weight*parseFloat(drug.DoseMax_mgkg);
+
+const volMin=doseMin/parseFloat(drug.Conc_mg_mL);
+const volMax=doseMax/parseFloat(drug.Conc_mg_mL);
+
+const maxDaily=weight*parseFloat(drug["Max (mkday)"]);
+
+document.getElementById("result").innerHTML=
+`
+<h3>${drug.DrugName}</h3>
+
+<p>
+Dose:
+${doseMin.toFixed(1)} - ${doseMax.toFixed(1)} mg/dose
+</p>
+
+<p>
+Volume:
+${volMin.toFixed(1)} - ${volMax.toFixed(1)} mL/dose
+</p>
+
+<p>
+Maximum daily dose:
+${maxDaily.toFixed(1)} mg/day
+</p>
+`;
+
+}
+
+loadDrugs();
+
+</script>
+</body>
+</html>
