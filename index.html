@@ -100,7 +100,13 @@ type="number"
 placeholder="Weight (kg)"
 >
 
-<select id="drug"></select>
+<input
+list="druglist"
+id="drug"
+placeholder="Search drug..."
+>
+
+<datalist id="druglist"></datalist>
 
 <button onclick="calculate()">
 Calculate Dose
@@ -112,16 +118,6 @@ Calculate Dose
 
 </div>
 
-<script>
-<h2>Pediatric Dose Calculator</h2>
-
-<input id="weight" type="number" placeholder="Weight (kg)">
-
-<select id="drug"></select>
-
-<button onclick="calculate()">Calculate</button>
-
-<div class="result" id="result"></div>
 <script>
 
 const SHEET_ID="15rif9LPKAhaMZjvXKSwruZEZF8pfrOoYo3BTXPj1qk4";
@@ -142,13 +138,12 @@ console.log(data);
 
 window.drugs=data;
 
-const select=document.getElementById("drug");
+const list=document.getElementById("druglist");
 
 data.forEach(d=>{
 const option=document.createElement("option");
 option.value=d.Name;
-option.text=d.Name;
-select.appendChild(option);
+list.appendChild(option);
 });
 
 }
