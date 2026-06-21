@@ -48,8 +48,8 @@ const select=document.getElementById("drug");
 
 data.forEach(d=>{
 const option=document.createElement("option");
-option.value=d.DrugName;
-option.text=d.DrugName;
+option.value=d.Name;
+option.text=d.Name;
 select.appendChild(option);
 });
 
@@ -61,19 +61,19 @@ const weight=parseFloat(document.getElementById("weight").value);
 
 const selected=document.getElementById("drug").value;
 
-const drug=drugs.find(d=>d.DrugName===selected);
+const drug=drugs.find(d=>d.Name===selected);
 
-const doseMin=weight*parseFloat(drug.DoseMin_mgkg);
-const doseMax=weight*parseFloat(drug.DoseMax_mgkg);
+const doseMin = weight * parseFloat(drug["Min (mkday)"]);
+const doseMax = weight * parseFloat(drug["Max (mkday)"]);
 
-const volMin=doseMin/parseFloat(drug.Conc_mg_mL);
-const volMax=doseMax/parseFloat(drug.Conc_mg_mL);
+const volMin = doseMin / parseFloat(drug["Conc per mL (mg/mL)"]);
+const volMax = doseMax / parseFloat(drug["Conc per mL (mg/mL)"]);
 
-const maxDaily=weight*parseFloat(drug["Max (mkday)"]);
+const maxDaily = parseFloat(drug["MaxDailyDose_mg"]);
 
 document.getElementById("result").innerHTML=
 `
-<h3>${drug.DrugName}</h3>
+<h3>${drug.Name}</h3>
 
 <p>
 Dose:
