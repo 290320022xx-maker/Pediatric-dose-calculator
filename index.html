@@ -258,8 +258,16 @@ return;
 
 }
 
-const doseMin = weight * parseFloat(drug["Min (mkday)"]);
-const doseMax = weight * parseFloat(drug["Max (mkday)"]);
+let doseMin, doseMax;
+
+if(drug["Weight_Based"]==="N"){
+    doseMin = parseFloat(drug["Min (mkday)"]);
+    doseMax = parseFloat(drug["Max (mkday)"]);
+}
+else{
+    doseMin = weight * parseFloat(drug["Min (mkday)"]);
+    doseMax = weight * parseFloat(drug["Max (mkday)"]);
+}
 
 console.log(drug["Min (mkday)"]);
 console.log(drug["Max (mkday)"]);
