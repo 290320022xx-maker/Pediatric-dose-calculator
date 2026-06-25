@@ -89,6 +89,35 @@ button:hover{
 opacity:0.9;
 }
 
+.tab-menu{
+display:flex;
+gap:10px;
+margin-bottom:20px;
+}
+
+.tab-btn{
+flex:1;
+padding:12px;
+border:none;
+border-radius:12px;
+background:#e3f2fd;
+cursor:pointer;
+font-weight:600;
+}
+
+.tab-btn.active{
+background:#1565c0;
+color:white;
+}
+
+.tab-page{
+display:none;
+}
+
+.tab-page.active{
+display:block;
+}
+
 .result{
 margin-top:20px;
 padding:20px;
@@ -118,6 +147,24 @@ border-left:5px solid #1565c0;
 
 <div class="card">
 
+<div class="tab-menu">
+
+<button
+class="tab-btn active"
+onclick="showTab('pediatric', this)"
+>
+Pediatric Dose
+</button>
+
+<button
+class="tab-btn"
+onclick="showTab('tb', this)"
+>
+TB Dose
+</button>
+
+</div>
+<div id="pediatric" class="tab-page active">
 <h1>🩺 Pediatric Dose Calculator</h1>
 
 <div class="subtitle">
@@ -332,6 +379,8 @@ const maxDaily = Number(maxDailyRaw);
 console.log("maxDaily =", maxDaily);
 
 document.getElementById("result").innerHTML=
+
+</div>
 `
 <h2>${drug.Name}</h2>
 
@@ -365,6 +414,36 @@ ${maxDaily.toLocaleString()} mg/day
 
 }
 
+<div id="tb" class="tab-page">
+
+<h1>🫁 TB Dose Calculator</h1>
+
+<div class="subtitle">
+Tuberculosis Treatment
+</div>
+
+<p>
+TB calculator coming soon...
+</p>
+
+</div>
+
+function showTab(tabId, btn){
+
+document.querySelectorAll('.tab-page').forEach(page=>{
+page.classList.remove('active');
+});
+
+document.querySelectorAll('.tab-btn').forEach(button=>{
+button.classList.remove('active');
+});
+
+document.getElementById(tabId).classList.add('active');
+
+btn.classList.add('active');
+
+}
+  
 loadDrugs();
 
 </script>
